@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADVT7508 Exam Practice</title>
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#1f2328;--muted:#5f6670;--line:#e3ded3;
+  --accent:#b4532a;--accent-soft:#f6e3d8;--good:#2f7d4f;--good-soft:#e1f2e7;--bad:#b3261e;--bad-soft:#fbe4e2;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16181b;--card:#1f2226;--ink:#eceae5;--muted:#a3a8ae;--line:#33373c;
+  --accent:#e58a5c;--accent-soft:#3a2a22;--good:#6cc58f;--good-soft:#1f3328;--bad:#f08a82;--bad-soft:#3b2220;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{padding:20px 16px 8px;max-width:820px;margin:0 auto}
+h1{font-size:1.45rem;margin:0 0 4px}
+.sub{color:var(--muted);font-size:.92rem;margin:0}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;max-width:820px;margin:0 auto;padding:10px 16px;overflow-x:auto}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;font-size:.92rem;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{max-width:820px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;font-size:.92rem;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.45;cursor:default}
+select{max-width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:.92rem}
+.tag{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-bottom:8px}
+.q{font-size:1.07rem;font-weight:600;margin:0 0 12px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:11px 13px;border-radius:10px;margin-bottom:8px;font-size:.98rem;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.right{background:var(--good-soft);border-color:var(--good);color:var(--ink)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--ink)}
+.opt:disabled{cursor:default}
+.explain{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 12px;border-radius:8px;margin-top:6px;font-size:.95rem}
+.explain b.ok{color:var(--good)} .explain b.no{color:var(--bad)}
+.opt .note{display:block;margin-top:5px;font-size:.86rem;line-height:1.4;color:var(--muted)}
+.opt.right .note{color:var(--good);font-weight:600}
+.opt.wrong .note{color:var(--bad)}
+.opt.dim:not(.wrong){opacity:1}
+.progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:10px 0 2px}
+.progress i{display:block;height:100%;background:var(--accent);width:0}
+.meta{color:var(--muted);font-size:.88rem}
+.score{font-size:2rem;font-weight:700;margin:4px 0}
+textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink);resize:vertical}
+.case-text{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.95rem}
+.case-text p{margin:0 0 8px}
+.marks{color:var(--accent);font-weight:700}
+.model{border-left:4px solid var(--good);background:var(--good-soft);padding:10px 12px;border-radius:8px;margin-top:10px;font-size:.95rem}
+.model ul{margin:6px 0 0 18px;padding:0}
+.hidden{display:none}
+.flip{cursor:pointer;min-height:110px;display:flex;flex-direction:column;justify-content:center}
+.flip .term{font-weight:700;font-size:1.05rem}
+.flip .def{margin-top:8px;color:var(--ink)}
+.flip .hint{color:var(--muted);font-size:.82rem;margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.pattern{background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:.93rem;margin-bottom:12px}
+.prow{display:flex;align-items:center;gap:10px;margin:8px 0}.pname{width:42%;font-size:.9rem}
+.pbar{flex:1;height:10px;background:var(--line);border-radius:6px;overflow:hidden}.pbar i{display:block;height:100%}
+.pval{width:92px;text-align:right;font-size:.85rem;color:var(--muted)}
+.mopt{display:block;padding:9px 10px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;cursor:pointer}
+.rev li{margin-bottom:10px;font-size:.93rem}
+.ttree,.ttree ul{list-style:none;margin:0;padding-left:16px;border-left:1px solid var(--line)}
+.ttree{padding-left:4px;border-left:none}.ttree li{margin:6px 0}
+.tlabel{display:inline-block;font-size:.95rem;padding:3px 8px;border:1px solid var(--line);border-radius:8px}
+.tbranch{font-weight:700;background:var(--accent-soft);border-color:var(--accent-soft)}
+.tblank{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.thint{font-size:.93rem;color:var(--muted)}
+.tin{flex:1;min-width:150px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:.95rem}
+.tin.tok{border-color:var(--good);background:var(--good-soft)}.tin.tno{border-color:var(--bad);background:var(--bad-soft)}
+.tans{width:100%;font-size:.86rem;color:var(--bad);font-weight:600}
+.tin.tok+.tans{color:var(--good);width:auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>ADVT7508 Exam Practice</h1>
+  <p class="sub">Fundamentals of Advertising · Lectures 1–8 (no Lecture 6, no Week 7 sustainability tutorial) · Exam: Sat 14 Nov, 11:15 am</p>
+</header>
+<nav><div class="tabs">
+  <button class="tab on" data-tab="mcq">Multiple choice</button>
+  <button class="tab" data-tab="cases">Case practice</button>
+  <button class="tab" data-tab="mock">Mock exam</button>
+  <button class="tab" data-tab="drill">Speed drill</button>
+  <button class="tab" data-tab="defs">Must-know definitions</button>
+  <button class="tab" data-tab="prog">My progress</button>
+  <button class="tab" data-tab="how">How to answer</button>
+</div></nav>
+<main>
+
+<!-- MCQ -->
+<section id="mcq">
+  <div class="card">
+    <div class="row">
+      <select id="topic"></select>
+      <button class="btn" id="shuffle">Shuffle</button>
+      <button class="btn" id="exam12">Exam mode (12 random)</button>
+      <button class="btn" id="redoWrong">Redo wrong ones</button>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="meta" id="status"></div>
+  </div>
+  <div id="qbox"></div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="hidden">
+  <div class="card">
+    <div class="pattern"><b>Every answer:</b> define the term → apply it with facts from the case → give a clear verdict. Use course terms. Marks tell you how long to write.</div>
+    <div class="row">
+      <select id="casePick"></select>
+      <button class="btn" id="timerBtn">Start 40-min timer</button>
+      <span class="timer" id="timer"></span>
+    </div>
+  </div>
+  <div id="caseBox"></div>
+</section>
+
+<!-- DEFS -->
+<section id="defs" class="hidden">
+  <div class="card"><div class="row"><span class="meta">Say the definition out loud, then tap to check. The briefing says to know <b>Advertising, IMC and Creativity</b> for sure.</span></div>
+  <div class="row" style="margin-top:8px"><button class="btn" id="showAll">Show all</button><button class="btn" id="hideAll">Hide all</button></div></div>
+  <div class="grid" id="defGrid"></div>
+</section>
+
+<!-- MOCK -->
+<section id="mock" class="hidden">
+  <div class="card" id="mockHead">
+    <p class="q" style="margin-bottom:6px">Full mock exam · 90 minutes</p>
+    <p class="meta" style="margin-top:0">Part A: 12 random multiple-choice questions (no answers shown until the end). Part B: one random case. Do it like the real thing: no notes.</p>
+    <div class="row"><button class="btn primary" id="mockStart">Start mock exam</button><span class="timer" id="mockTimer"></span></div>
+  </div>
+  <div id="mockBox"></div>
+</section>
+
+<!-- DRILL -->
+<section id="drill" class="hidden">
+  <div class="card">
+    <div class="row"><select id="drillCat"></select><button class="btn" id="drillGo">Start</button></div>
+    <div class="meta" id="drillStat" style="margin-top:8px"></div>
+  </div>
+  <div id="drillBox"></div>
+</section>
+
+<!-- PROGRESS -->
+<section id="prog" class="hidden">
+  <div class="card"><p class="q" style="margin-bottom:4px">Score by lecture</p>
+    <p class="meta" style="margin-top:0">Counts every multiple-choice, speed-drill and mock-exam answer on this device.</p>
+    <div id="progBox"></div>
+    <div class="row" style="margin-top:12px"><button class="btn" id="progReset">Reset progress</button></div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="hidden">
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Exam format</h2>
+    <ul>
+      <li>90 min + 10 min planning. Closed book, paper. Worth 35%.</li>
+      <li><b>Part A:</b> 12 multiple-choice questions (1 mark each), a mix of definitions and applying them to an example.</li>
+      <li><b>Part B:</b> a short fictional case on a real brand's ad (picture, target market, media placement), then short answers on <b>message, creative and media strategy</b>. Sample was 23 marks.</li>
+      <li>One question asks you to <b>judge</b> the ad (overall effectiveness, or message / creative / media strategy, or whether it is creative) and justify it with case facts.</li>
+    </ul>
+    <h2 style="font-size:1.15rem">Timing plan</h2>
+    <ul>
+      <li>Planning time: read the case, underline target market, vehicle, objective, what the ad shows.</li>
+      <li>Part A: about 15 min.</li>
+      <li>Part B: about 1 min per mark (23 marks → about 60–70 min), leave 5 min to check.</li>
+    </ul>
+    <h2 style="font-size:1.15rem">Common question types in Part B</h2>
+    <ul>
+      <li>Which <b>execution technique</b>? (imagery, humour, slice of life, demonstration, testimonial, dramatisation…)</li>
+      <li>Which <b>message strategy</b>? (USP, brand image, inherent drama, positioning)</li>
+      <li><b>Medium vs vehicle</b>; does the vehicle suit the target on <b>reach</b> and <b>frequency</b>?</li>
+      <li>Which <b>scheduling</b> method suits? (continuity, flighting, pulsing)</li>
+      <li>Is it <b>creative</b>? Academic vs agency/industry definition, plus one advantage of creativity.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ===================== MULTIPLE CHOICE BANK ===================== */
+const L = {
+ 1:"L1 Intro & industry",2:"L2 Communication & IMC",3:"L3 Consumer behaviour",4:"L4 Insights & strategy",
+ 5:"L5 Creative strategy",7:"L7 Media planning",8:"L8 Media selection",S:"Sample exam"
+};
+const Q = [
+ // Sample exam
+ {l:"S",q:"Which term describes an advertisement that focuses on product association, images, and deeper consumer emotion?",o:["Hard sell","Soft sell","Rational appeal","Informational appeal"],a:1,e:"Soft sell = association, images, deeper emotion. Hard sell = direct, rational ‘reason why’ messaging."},
+ {l:"S",q:"Which statement is TRUE in relation to Congruity Theory?",o:["Consistency is disrupted when persuasive messages challenge what we know or think","Consistency is disrupted when there is inconsistency between touchpoints in a campaign","Incongruent messages require more effort but are better remembered","All the above"],a:3,e:"All three are on the Lecture 2 congruity slide. Humans prefer consistency; congruent messages → positive evaluations; incongruent messages → more effort but better remembered."},
+ {l:"S",q:"ASICS creates an Instagram ad promoting its GEL cushioning technology, a key feature of its shoes. What type of messaging strategy is this?",o:["Positioning","Inherent drama","Unique Selling Proposition","Brand image"],a:2,e:"One unique feature dominates the message → USP."},
+ {l:"S",q:"Which statement about media scheduling is NOT true?",o:["Trade-offs between reach and frequency are rare","Flighting allows advertising during specific periods, improving cost efficiency","A risk of continuity scheduling is overexposure","Pulsing combines elements of flighting and continuity"],a:0,e:"Budgets force a trade-off between reach and frequency, so trade-offs are common, not rare."},
+ {l:"S",q:"Which role in the communication process is described correctly?",o:["Sender – interprets the message","Receiver – creates the message","Encoder – translates the idea into a message","Channel – provides feedback"],a:2,e:"Encoding = putting thoughts/ideas into symbolic form. The receiver decodes (interprets); the channel carries the message."},
+ // L1
+ {l:1,q:"Which is NOT part of the traditional definition of advertising?",o:["Paid","Non-personal communication","Identified sponsor","Two-way personal dialogue with each customer"],a:3,e:"Traditional definition: any PAID form of NON-PERSONAL communication about an organisation, product, service or idea by an IDENTIFIED SPONSOR."},
+ {l:1,q:"Meat & Livestock Australia runs ads encouraging Australians to eat more red meat (no brand named). This stimulates…",o:["Selective demand","Primary demand","Trade demand","Professional demand"],a:1,e:"Primary demand = an industry stimulating a whole product category. Selective demand = a specific brand."},
+ {l:1,q:"An agency that specialises only in the creative side of advertising is a…",o:["Full-service agency","Media agency","Creative boutique","In-house agency"],a:2,e:"Creative boutique = creative aspects only. Full-service = full range of services."},
+ {l:1,q:"Which is an advantage of IN-HOUSE advertising rather than an external agency?",o:["External perspective","More control","More objectivity","Access to top creative talent"],a:1,e:"In-house: cost saving, more control, in-depth product knowledge, coordination, stability, access to top management. The others are agency advantages."},
+ {l:1,q:"In the CLAMP storytelling framework, ‘P’ stands for…",o:["Persuasion","Product","Plot","Placement"],a:2,e:"Character(s), Location, Action, Message, Plot. Plot = structured sequence of events creating meaning, tension and resolution."},
+ // L2
+ {l:2,q:"A ‘hard sell’ ad works on the belief that the best way to persuade is…",o:["Deeper consumer emotion","Rational ‘reason why’ messaging","Brand imagery","Storytelling"],a:1,e:"Hard sell = direct, rational ‘reason why’. Most ads today mix hard and soft sell."},
+ {l:2,q:"A customer posts a glowing review of a café on Facebook. For the café this is…",o:["Paid media","Owned media","Earned media","Shared media"],a:2,e:"Earned = customers/stakeholders generate the communication. Credible and largely free, but no control over the message."},
+ {l:2,q:"A main DISADVANTAGE of owned media (e.g. a brand website) is that…",o:["It has the lowest control over the message","It is the most expensive form","Other media (often paid) is needed to drive people to it","It has the lowest credibility of all"],a:2,e:"Owned media can be less effective if customers can’t find it, so paid media is often needed to raise awareness."},
+ {l:2,q:"Mastercard using the same ‘Priceless’ tagline, tone and logo across every campaign is an example of…",o:["Message integration","Organisational integration","Strategic integration","Dysfunction"],a:0,e:"Message integration = verbal and visual consistency (logo, colours, theme, tone, tagline)."},
+ {l:2,q:"Synergy, the aim of IMC, means…",o:["Using the cheapest media mix","The combined effect of consistent messages across tools exceeds the sum of their individual effects","Every channel uses a different message","Advertising replaces public relations"],a:1,e:"Synergy = combined effect > sum of parts; achieved by repetition, linked messages and common themes; builds cumulative memory."},
+ {l:2,q:"IMC emerged mainly as a response to…",o:["Media fragmentation","The printing press","Lower ad prices","Fewer brands"],a:0,e:"Media fragmentation → many touchpoints → consumers want one brand story, not silos."},
+ {l:2,q:"CEO support, cross-functional teams and shared data are examples of…",o:["Message integration","Strategic integration","Organisational integration","Earned media"],a:2,e:"Organisational integration = aligned processes, structures, rewards, shared values and goals."},
+ {l:2,q:"A silo-like company structure with turf battles that blocks IMC is a…",o:["Attitudinal barrier","Organisational barrier","Implementation barrier","Media barrier"],a:1,e:"Organisational barriers: silos, turf battles, agency egos, no top-management support."},
+ // L3
+ {l:3,q:"In the communication process, ‘clutter’ is a type of…",o:["Feedback","Noise","Encoding","Channel"],a:1,e:"Noise = unplanned interference. Types: white noise, situational factors, clutter (competing messages)."},
+ {l:3,q:"The small group of brands a consumer seriously considers is the…",o:["Evaluative criteria","Evoked set","Reference group","Consideration noise"],a:1,e:"Evoked set = a manageable subset of brands with potential to meet the need, evaluated further before purchase."},
+ {l:3,q:"After buying an expensive laptop, Sam feels doubt and searches for reviews that support his choice. This is…",o:["Selective exposure","Cognitive dissonance","Problem recognition","Operant conditioning"],a:1,e:"Cognitive dissonance = postpurchase doubt; consumers reduce it by seeking supportive information."},
+ {l:3,q:"A perfume ad pairs the product with a successful, attractive celebrity so the perfume takes on those qualities. This uses…",o:["Operant conditioning","Classical conditioning","Cognitive learning","Selective retention"],a:1,e:"Classical conditioning: neutral stimulus (perfume) paired with a stimulus that produces a response (celebrity) → passive learning by repeated pairing."},
+ {l:3,q:"An ad shows the reward you get from using a product, encouraging you to repeat that behaviour. This is…",o:["Classical conditioning","Operant conditioning","Peripheral route","Selective attention"],a:1,e:"Operant conditioning = repeat rewarded behaviours, avoid punished ones; the person is active."},
+ {l:3,q:"According to ELM, a highly involved consumer processing detailed arguments is on the…",o:["Peripheral route, temporary outcome","Central route, enduring outcome","Peripheral route, enduring outcome","Central route, temporary outcome"],a:1,e:"Central = high involvement, active evaluation, enduring change. Peripheral = low involvement, peripheral cues, temporary change."},
+ {l:3,q:"Under ELM, which three conditions are needed to process a persuasive message?",o:["Reach, frequency, timing","Motivation, ability, opportunity","Attention, interest, desire","Need, search, purchase"],a:1,e:"Motivation + ability, plus opportunity (no distraction or noise)."},
+ {l:3,q:"A consumer scrolls past most ads but stops to watch one about running shoes. This is…",o:["Selective exposure","Selective attention","Selective retention","Selective comprehension"],a:1,e:"Selective attention = choosing to focus on certain stimuli while excluding others."},
+ {l:3,q:"‘How will my friends see me in this jacket?’ is a…",o:["Functional consequence","Psychosocial consequence","Evaluative criterion","Innate need"],a:1,e:"Psychosocial consequences are intangible: ego and social/esteem. Functional = concrete outcomes of use."},
+ {l:3,q:"Which is an OBSERVABLE response or feedback?",o:["Brand recall","Message completion","Coupon redemption","Awareness"],a:2,e:"Observable: purchases, sales/enquiries, coupon redemptions. Non-observable: research measures, recall/awareness."},
+ // L4
+ {l:4,q:"Segmenting by personality, values or lifestyle is…",o:["Demographic","Geographic","Psychographic","Socio-economic"],a:2,e:"Psychographic = personality, values, lifestyle. Socio-economic = education, income, occupation, class."},
+ {l:4,q:"Grouping customers as heavy, light, first-time or non-users is segmentation by…",o:["Benefits sought","Usage","Outlet","Awareness and intentions"],a:1,e:"Usage = rate and status of use (behavioural segmentation)."},
+ {l:4,q:"The Australian newspaper focusing on national business readers is…",o:["Undifferentiated marketing","Differentiated marketing","Concentrated marketing","Mass marketing"],a:2,e:"Concentrated = single offering to a single segment."},
+ {l:4,q:"Avis positioning itself against Hertz, the car-rental leader, is positioning by…",o:["Product class","Competitor","Price/quality","Use/application"],a:1,e:"Competitor positioning = positioning against a named rival."},
+ {l:4,q:"The ADVERTISING PROBLEM should be written as…",o:["A SMART objective","A negative statement of the real problem that advertising can solve","A list of symptoms","The campaign tagline"],a:1,e:"The gap between where the brand is and wants to be; a negative statement; the real problem, not the symptom (Juicy Fruit = seen as irrelevant, not just unknown)."},
+ {l:4,q:"In SMART(T) objectives, the extra ‘T’ stands for…",o:["Tactical","Targeted","Tested","Trendy"],a:1,e:"Specific, Measurable, Achievable, Realistic, Timed, (Targeted = defines the target market)."},
+ {l:4,q:"Which two advertising objectives are ALWAYS objectives?",o:["Category need and purchase intention","Brand awareness and brand attitude","Purchase intention and brand attitude","Category need and brand awareness"],a:1,e:"Brand awareness and brand attitude are always objectives. Category need only sometimes; purchase intention rarely for advertising."},
+ {l:4,q:"A target market that the marketer can actually reach for marketing and sales is…",o:["Sizable","Stable","Accessible","Congruent"],a:2,e:"Target markets should be identifiable, sizable, stable, accessible, congruent."},
+ // L5
+ {l:5,q:"The ACADEMIC view of creativity defines it by…",o:["Awards won","Sales results","Originality and appropriateness/relevance","Production budget"],a:2,e:"Academic: original (novel) + appropriate/relevant. Industry: effectiveness/outcomes (managers) and awards/reputation (creatives)."},
+ {l:5,q:"In agencies, CREATIVES tend to measure creativity by…",o:["Sales outcomes","Reputation and awards earned","Reach and frequency","CPM"],a:1,e:"Managers measure effectiveness (awareness, sales); creatives measure reputation and awards."},
+ {l:5,q:"Which is a stated benefit of creative advertising?",o:["It makes other ads more memorable","It facilitates recall of the ad and brand","It always lowers media costs","It removes the need for frequency"],a:1,e:"Creative ads: facilitate memory, make other ads less memorable, inspire consumers to think creatively."},
+ {l:5,q:"In the five-step creative thinking model, the ‘Eureka!’ moment is…",o:["Immersion","Incubation","Illumination","Verification"],a:2,e:"Immersion → Digestion → Incubation → Illumination (eureka) → Reality/Verification."},
+ {l:5,q:"An appeal that creates feelings and meanings that ‘transform’ how the usage experience feels is…",o:["Informational","Transformational (emotional)","Feature appeal","News appeal"],a:1,e:"Emotional = transformational. Rational = informational."},
+ {l:5,q:"A supermarket ad dominated by ‘50% off this week only’ uses a…",o:["Feature appeal","Favourable price appeal","News appeal","Popularity appeal"],a:1,e:"Favourable price appeal = price offer is the dominant point (sales, specials, low everyday prices)."},
+ {l:5,q:"An ad where the product solves a problem in a real, everyday situation uses which execution?",o:["Straight sell","Slice of life","Animation","Scientific/technical"],a:1,e:"Slice of life = product solves a problem in a real-life everyday situation (emotional/rational)."},
+ {l:5,q:"An ad that is almost entirely a striking picture with very little product information uses…",o:["Imagery","Straight sell","Demonstration","Comparison"],a:0,e:"Imagery = focus on visual elements: pictures, illustrations, symbols (emotional). This was the Heinz answer."},
+ {l:5,q:"‘Seeing is believing’ – showing the product working – is…",o:["Testimonial","Demonstration","Dramatisation","Humour"],a:1,e:"Demonstration (rational/emotional)."},
+ {l:5,q:"A detergent ad built on the real tension of a stain right before a wedding uses which message strategy?",o:["USP","Brand image","Inherent drama","Positioning"],a:2,e:"Inherent drama = uses drama around the underlying characteristics that trigger purchase."},
+ {l:5,q:"The ‘big idea’ is…",o:["The media budget","The translation of ‘what to say’ into ‘how to say it’","The target persona","The scheduling plan"],a:1,e:"Big idea = central campaign idea, distinctive and memorable; infuses the message with consumer insight."},
+ {l:5,q:"A moving storyboard with a soundtrack is called…",o:["Script","Animatic","Layout","Rough"],a:1,e:"Script = words; storyboard = frame-by-frame drawings; animatic = moving storyboard with sound."},
+ // L7
+ {l:7,q:"In the Heinz case, ‘Better Homes and Gardens’ is the…",o:["Medium","Vehicle","Channel strategy","Coverage"],a:1,e:"Medium = general category (print/magazine). Vehicle = specific carrier (Better Homes and Gardens)."},
+ {l:7,q:"Reach is…",o:["Number of times someone sees the vehicle","Number of DIFFERENT audience members exposed at least once in a period","Total cost per thousand","The potential audience of a vehicle"],a:1,e:"Reach = different people exposed at least once. Frequency = number of times exposed. Coverage = potential audience."},
+ {l:7,q:"30,000 of a 120,000-person target audience see the ad at least once. Reach is…",o:["4%","25%","30%","40%"],a:1,e:"Reach % = 30,000 ÷ 120,000 × 100 = 25%."},
+ {l:7,q:"A campaign reaches 40% of the target an average of 5 times. TARPs = ?",o:["45","80","200","8"],a:2,e:"TARP = reach × frequency = 40 × 5 = 200."},
+ {l:7,q:"8 million TV homes, program rating 20. Potential reach = ?",o:["160,000 homes","1.6 million homes","20 million homes","400,000 homes"],a:1,e:"0.20 × 8 million = 1.6 million homes."},
+ {l:7,q:"Which scheduling method best suits a seasonal product like sunscreen?",o:["Continuity","Flighting","Pulsing","None"],a:1,e:"Flighting = intermittent periods of advertising and none; suits seasonal products."},
+ {l:7,q:"Cold drinks sell all year but jump in summer. Best scheduling?",o:["Continuity","Flighting","Pulsing","Random"],a:2,e:"Pulsing = continuity maintained, with heavier bursts at peak periods."},
+ {l:7,q:"A disadvantage of continuity scheduling is…",o:["Gaps in awareness","Higher costs and potential overexposure","Vulnerable to competitors between flights","Only suits seasonal products"],a:1,e:"Continuity: constant reminder, covers buying cycle, but higher cost and overexposure risk."},
+ {l:7,q:"Which brand needs HIGHER frequency?",o:["A brand with high loyalty","A brand with high market share","A new brand","A brand with a simple message"],a:2,e:"New brands need more frequency. High share, high loyalty and simple messages need less."},
+ {l:7,q:"The theory that consumers actively seek out media for different uses is…",o:["Congruity theory","Gratification theory","ELM","Cognitive learning theory"],a:1,e:"Gratification theory: each medium gives different uses and gratifications."},
+ {l:7,q:"Effective frequency is…",o:["The observed frequency after the campaign","The desired frequency level set by management in planning","Reach × frequency","The number of different people reached"],a:1,e:"Effective = desired level (set in planning). Average = observed value calculated for a campaign."},
+ // L8
+ {l:8,q:"CPM is…",o:["Cost per million viewers","Cost of exposing 1,000 members of the target audience","Cost per media vehicle","Clicks per minute"],a:1,e:"CPM = cost per thousand; a relative-cost measure to compare vehicles."},
+ {l:8,q:"Total media cost ÷ number of desired actions (e.g. orders) is…",o:["CPC","CPA","CPM","C/TARP"],a:1,e:"CPA = cost per action. CPC = cost ÷ clicks."},
+ {l:8,q:"Setting the ad budget as a percentage of the brand’s share of category ad spending is…",o:["Percentage-of-sales","Task method","Share-of-voice","Share-of-market"],a:2,e:"Share-of-voice = based on share of advertising spend in the category."},
+ {l:8,q:"A key ADVANTAGE of magazines is…",o:["Short lead time","Longevity and multiple readers","Audio impact","Low selectivity"],a:1,e:"Magazines: highly segmented, editorial compatibility, quality reproduction, longevity, multiple readers. Disadvantage: long lead time, clutter."},
+ {l:8,q:"A key DISADVANTAGE of radio is…",o:["High production cost","Impact limited to audio only","Poor local coverage","Slow to build frequency"],a:1,e:"Radio: local, cheap, fast frequency, segmented, personal, but audio only and expensive nationally."},
+ {l:8,q:"Out-of-home (billboards, bus shelters) offers…",o:["Long exposure time","Location-specific targeting and high repetition","Sound and motion","Short lead time"],a:1,e:"OOH: location-specific, high repetition, strong impact; but short exposure, visual only, long lead time."},
+ {l:8,q:"Cinema advertising’s main advantage and disadvantage are…",o:["Low cost / low impact","Captive audience / slow to build reach","Short lead time / clutter","Highly targeted / ad skipping"],a:1,e:"Cinema: sight, sound, motion, captive paid audience; high production cost, slow to build reach."},
+ {l:8,q:"The ‘mood’ of a media vehicle matters because…",o:["It lowers CPM","The vehicle’s mood carries over to the ad and can enhance the message","It increases frequency automatically","It replaces the big idea"],a:1,e:"Creative aspects and moods: context (medium), mood (vehicle), and whether the medium supports the creative."},
+ {l:8,q:"A key disadvantage of television is…",o:["Low prestige","High absolute and production cost","No sight or motion","Slow reach"],a:1,e:"TV: mass coverage and fast reach, but low selectivity, short message life, high absolute and production costs, clutter."}
+];
+
+/* ===================== WHY EACH WRONG OPTION IS WRONG (same order as options) ===================== */
+const T="True, but the other statements are also true → ‘All the above’.";
+const NT="This statement is TRUE, so it is not the answer to a ‘NOT true’ question.";
+const PART="This IS part of the traditional definition.";
+const WHY=[
+ ["Hard sell = direct, rational ‘reason why’ messaging.","","Rational appeal = practical, functional information.","Informational appeal = same as rational: facts and features."],
+ [T,T,T,""],
+ ["Positioning = owning a differentiated space in the mind, not tied to one feature.","Inherent drama = dramatises the tension that triggers purchase.","","Brand image = personality and identity, with little about product features."],
+ ["",NT+" Flighting saves money by advertising only in key periods.",NT+" Overexposure is a continuity risk.",NT+" Pulsing = continuity plus bursts."],
+ ["The sender CREATES and encodes the message; the receiver interprets it.","The receiver DECODES (interprets) the message; the sender creates it.","","The channel CARRIES the message; feedback comes from the receiver."],
+ [PART,PART,PART,""],
+ ["Selective demand = demand for a specific BRAND; no brand is named here.","","Trade advertising targets retailers and wholesalers, not consumers.","Professional advertising targets professionals (e.g. doctors)."],
+ ["Full-service = offers the FULL range of marketing and communication services.","Media agency = specialises in creating and distributing messages (media).","","In-house = ads prepared by the client itself, not an agency."],
+ ["External perspective is an AGENCY advantage.","","Objectivity is an AGENCY advantage.","Top creative talent is an AGENCY advantage."],
+ ["Not in CLAMP. C-L-A-M-P = Character, Location, Action, Message, Plot.","Not in CLAMP; the product is not one of the letters.","","Not in CLAMP; placement is a media term."],
+ ["Deeper emotion = SOFT sell.","","Brand imagery = SOFT sell.","Storytelling is a soft-sell/CLAMP idea, not ‘reason why’."],
+ ["Paid = the BRAND pays for the channel (TV, paid search).","Owned = the BRAND controls the channel (website, blog).","","‘Shared’ is not one of the lecture’s categories (Paid, Owned, Earned)."],
+ ["Wrong: owned media gives GREATER control.","Wrong: owned media is MORE cost-effective.","","Low credibility is a PAID media disadvantage."],
+ ["","Organisational = structure, processes, CEO support, cross-functional teams.","Strategic = common objectives, mission, shared budget.","Dysfunction = mixed or incorrect messages, the opposite of synergy."],
+ ["Cost is not what synergy means.","","Different messages per channel → dysfunction, not synergy.","IMC COMBINES tools like PR; it does not replace them."],
+ ["","The printing press is 15th-century advertising history.","Not a reason given in the lecture.","Opposite: MORE touchpoints and media drove IMC."],
+ ["Message integration = verbal and visual consistency.","Strategic integration = common objectives and shared budget.","","Earned media is a channel type, not integration."],
+ ["Attitudinal = perceived differences between groups (e.g. advertising vs PR professionals).","","Implementation = client–agency relationship problems.","Not one of the three barriers (organisational, implementation, attitudinal)."],
+ ["Feedback = the receiver’s response sent back to the sender.","","Encoding = putting ideas into symbolic form.","Channel = the method the message travels through."],
+ ["Evaluative criteria = the ATTRIBUTES used to compare brands.","","Reference group = a group whose values guide your judgements.","Not a course term."],
+ ["Selective exposure = choosing whether to be available to information at all.","","Problem recognition = the FIRST stage, perceiving a need.","Operant conditioning = learning from rewards and punishments."],
+ ["Operant = learning from rewards/punishments for behaviour; the person is ACTIVE.","","Cognitive learning = active thinking and evaluating, not automatic pairing.","Selective retention = remembering only relevant information."],
+ ["Classical = PASSIVE pairing of stimuli, not rewards.","","Peripheral route = ELM low-involvement cues.","Selective attention = a perception process."],
+ ["Peripheral = LOW involvement, relies on cues, not detailed arguments.","","Peripheral outcomes are TEMPORARY, not enduring.","Central outcomes are ENDURING, not temporary."],
+ ["Reach, frequency and timing are media planning terms.","","Not the ELM conditions.","These are decision-making stages, not ELM."],
+ ["Exposure = whether you make yourself available. She IS exposed (scrolling); she chose where to focus.","","Retention = what you remember later.","Comprehension = interpreting through your own beliefs and attitudes."],
+ ["Functional = concrete outcomes of use (e.g. does it keep me warm?).","","Evaluative criteria = attributes used to compare brands.","Innate need = biological need (food, water, shelter)."],
+ ["Recall is NON-observable (measured by research).","Message completion is NON-observable.","","Awareness is NON-observable."],
+ ["Demographic = age, sex, family size, marital status.","Geographic = state, city, urbanisation.","","Socio-economic = income, education, occupation, class."],
+ ["Benefits sought = outcomes wanted (quality, price, warranty).","","Outlet = where it is bought (department store, supermarket).","Awareness and intentions = level of product knowledge."],
+ ["Undifferentiated = ONE offering to the WHOLE market (Henry Ford).","Differentiated = DIFFERENT offerings for different segments (Coke range).","","Mass marketing = undifferentiated."],
+ ["Product class = positioning against another CATEGORY (red meat vs other foods).","","Price/quality = price as the brand’s characteristic (Jetstar).","Use/application = a specific use (Arm & Hammer)."],
+ ["Objectives come AFTER the problem; the problem is not an objective.","","Symptoms are not the real problem (Juicy Fruit: ‘unknown’ was only a symptom).","A tagline is creative execution, not the problem."],
+ ["Not in SMART(T).","","Not in SMART(T).","Not in SMART(T)."],
+ ["Category need is only SOMETIMES an objective; purchase intention rarely.","","Purchase intention is NOT always an objective for advertising.","Category need is only an objective when needed."],
+ ["Sizable = enough consumers to be profitable.","Stable = predictable buying behaviour.","","Congruent = aligns with the company’s objectives and resources."],
+ ["Awards = the INDUSTRY view (creatives).","Sales = the INDUSTRY view (managers).","","Budget is in no definition of creativity."],
+ ["Sales outcomes = how MANAGERS measure it.","","Reach and frequency are media terms.","CPM is a media cost measure."],
+ ["Opposite: creative ads make other ads LESS memorable.","","Not on the slides.","Not on the slides; frequency is still needed."],
+ ["Immersion = gathering raw material and research.","Incubation = leaving it to the subconscious.","","Verification = checking the idea actually works."],
+ ["Informational = RATIONAL, facts and features.","","Feature appeal = a RATIONAL type (dominant product trait).","News appeal = a RATIONAL type (an announcement)."],
+ ["Feature appeal = the dominant product trait.","","News appeal = an announcement about the product or company.","Popularity appeal = how many people use or recommend it."],
+ ["Straight sell = plain product information.","","Animation = stylised or cartoon execution.","Scientific/technical = technical info or scientific endorsement."],
+ ["","Straight sell = information-heavy, the opposite of picture-led.","Demonstration = showing the product working.","Comparison = against competitors or substitutes."],
+ ["Testimonial = a person talks about their satisfaction.","","Dramatisation = a narrative with the product as hero.","Humour = uses jokes or comedy."],
+ ["USP = one unique feature claim.","Brand image = personality, little product information.","","Positioning = owning a space in the mind."],
+ ["Budget is a media/planning decision.","","A persona is a target-market tool.","Scheduling is a media decision."],
+ ["Script = the written words, not moving pictures.","","Layout = arrangement of print elements.","A rough is an early sketch, not a moving storyboard."],
+ ["Medium = the general category (print/magazine), not the specific title.","","Not a course term.","Coverage = the potential audience."],
+ ["That is FREQUENCY.","","That is CPM (a cost measure).","That is COVERAGE."],
+ ["Upside down: 120,000 ÷ 30,000 = 4.","","Mixes up 30,000 people with a percentage.","Wrong maths. 30,000 ÷ 120,000 = 0.25."],
+ ["Added (40 + 5) instead of multiplied.","Wrong maths. TARP = 40 × 5.","","Divided instead of multiplied."],
+ ["Decimal slip: that would be a rating of 2.","","The rating is a percentage, not millions of homes.","8 million ÷ 20 is the wrong way round."],
+ ["Continuity = constant all year: wasteful for a seasonal product.","","Pulsing needs steady sales ALL year; sunscreen barely sells in winter.","Scheduling is always needed."],
+ ["Continuity gives no extra push in summer.","Flighting stops completely, but drinks sell all year.","","Not a scheduling method."],
+ ["Gaps in awareness are a FLIGHTING disadvantage.","","Vulnerability between flights is a FLIGHTING disadvantage.","Seasonal products suit FLIGHTING."],
+ ["High loyalty → LOWER frequency needed.","High share → LOWER frequency needed.","","Simple message → LOWER frequency needed."],
+ ["Congruity = people prefer consistency in thought.","","ELM = routes to persuasion.","Cognitive learning = active thinking and learning."],
+ ["Observed after the campaign = AVERAGE frequency.","","Reach × frequency = TARPs.","Number of different people = REACH."],
+ ["Per THOUSAND, not million.","","Not per vehicle.","Nothing to do with clicks."],
+ ["CPC = cost ÷ clicks.","","CPM = cost per thousand people reached.","C/TARP = cost ÷ rating points."],
+ ["Percentage-of-sales = % of the brand’s retail sales.","Task method = based on number and complexity of tasks.","","Share-of-market = % of the brand’s market share."],
+ ["Magazines have a LONG lead time (short is newspapers).","","Audio impact = radio.","Low selectivity is a TV disadvantage."],
+ ["Low production cost is a radio ADVANTAGE.","","Local coverage is a radio STRENGTH.","Radio builds frequency QUICKLY."],
+ ["OOH exposure time is SHORT.","","Sound and motion = TV or cinema.","OOH has a LONG lead time."],
+ ["Cinema has HIGH impact and high production cost.","","Short lead time = newspapers.","Ad skipping is a TV problem; cinema has a captive audience."],
+ ["Mood does not change cost.","","Mood does not set frequency.","It supports the big idea; it doesn’t replace it."],
+ ["TV has HIGH prestige (an advantage).","","TV HAS sight, sound and motion.","TV gives high reach QUICKLY."]
+];
+
+/* ===================== MCQ ENGINE ===================== */
+const store = {
+  get(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+let wrongSet = new Set(store.get("advt_wrong")||[]);
+let deck=[], idx=0, score=0, answered=0;
+
+const topicSel=document.getElementById("topic");
+topicSel.innerHTML='<option value="all">All topics ('+Q.length+')</option>'+
+  Object.keys(L).map(k=>{const n=Q.filter(q=>String(q.l)===k).length;return '<option value="'+k+'">'+L[k]+' ('+n+')</option>'}).join("");
+
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startDeck(list){deck=list;idx=0;score=0;answered=0;render()}
+function byTopic(){const t=topicSel.value;return Q.map((q,i)=>i).filter(i=>t==="all"||String(Q[i].l)===t)}
+
+topicSel.onchange=()=>startDeck(byTopic());
+document.getElementById("shuffle").onclick=()=>startDeck(shuffleArr(byTopic()));
+document.getElementById("exam12").onclick=()=>startDeck(shuffleArr(Q.map((q,i)=>i)).slice(0,12));
+document.getElementById("redoWrong").onclick=()=>{
+  const w=[...wrongSet];
+  if(!w.length){document.getElementById("qbox").innerHTML='<div class="card">No wrong answers saved yet. Nice!</div>';return}
+  startDeck(shuffleArr(w));
+};
+
+function render(){
+  const box=document.getElementById("qbox");
+  document.getElementById("bar").style.width=(deck.length?idx/deck.length*100:0)+"%";
+  if(idx>=deck.length){
+    const pct=answered?Math.round(score/answered*100):0;
+    document.getElementById("status").textContent="Done";
+    box.innerHTML='<div class="card"><div class="meta">Your score</div><div class="score">'+score+' / '+answered+' ('+pct+'%)</div>'+
+      '<p>'+(pct>=80?"Strong. Move on to the case practice tab.":"Hit “Redo wrong ones” until they stick.")+'</p>'+
+      '<div class="row"><button class="btn primary" onclick="startDeck(shuffleArr(byTopic()))">Go again</button></div></div>';
+    return;
+  }
+  const qi=deck[idx], q=Q[qi];
+  document.getElementById("status").textContent="Question "+(idx+1)+" of "+deck.length+" · Score "+score+"/"+answered;
+  // shuffle options; keep "All the above" last
+  const fixed=q.o.map((t,i)=>i).filter(i=>/^all the above/i.test(q.o[i]));
+  const order=shuffleArr(q.o.map((t,i)=>i).filter(i=>!fixed.includes(i))).concat(fixed);
+  box.innerHTML='<div class="card"><span class="tag">'+L[q.l]+'</span><p class="q">'+q.q+'</p>'+
+    order.map((oi,pos)=>'<button class="opt" data-i="'+oi+'">'+String.fromCharCode(97+pos)+'. '+q.o[oi]+'</button>').join("")+
+    '<div id="fb"></div></div>';
+  box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.i,qi));
+}
+function choose(i,qi){
+  const q=Q[qi], btns=[...document.querySelectorAll(".opt")];
+  const byOrig=k=>btns.find(b=>+b.dataset.i===k);
+  btns.forEach(b=>b.disabled=true);
+  const rightBtn=byOrig(q.a); rightBtn.classList.add("right");
+  answered++;
+  const ok=i===q.a;
+  if(ok){score++;wrongSet.delete(qi)}else{byOrig(i).classList.add("wrong");wrongSet.add(qi)}
+  logStat(q.l,ok);
+  store.set("advt_wrong",[...wrongSet]);
+  const letter=String.fromCharCode(97+btns.indexOf(rightBtn));
+  const why=WHY[qi]||[];
+  btns.forEach(b=>{const k=+b.dataset.i;const n=document.createElement("span");n.className="note";
+    n.textContent=k===q.a?"✓ Correct answer":"✗ "+(why[k]||"")+(k===i?"  (your pick)":"");
+    b.appendChild(n);if(k!==q.a)b.classList.add("dim")});
+  document.getElementById("fb").innerHTML='<div class="explain">'+(ok?'<b class="ok">Correct.</b> ':'<b class="no">Not quite.</b> Answer: '+letter+'. ')+q.e+'</div>'+
+    '<div class="row" style="margin-top:12px"><button class="btn primary" id="next">Next →</button></div>';
+  document.getElementById("next").onclick=()=>{idx++;render();window.scrollTo({top:0,behavior:"smooth"})};
+}
+startDeck(byTopic());
+
+/* ===================== CASES ===================== */
+const CASES=[
+{name:"Heinz Ketchup (official sample, 23 marks)",
+ text:["Heinz won the 2026 Australian Advertising Print Award for a Tomato Ketchup ad in a popular lifestyle magazine. The ad shows a ketchup bottle made of stacked tomato slices, with the line “No one grows Ketchup like Heinz.” The visual highlights natural ingredients and Heinz’s reputation for quality.",
+ "<b>Target market:</b> parents, mainly mums who do grocery shopping and meal prep; value trusted, well-known brands and quality ingredients. Suburban and urban. Value family meals and home cooking. Regular, brand-loyal repeat shoppers.",
+ "<b>Media:</b> one single ad in <i>Better Homes and Gardens</i> magazine (national, large readership of Australian women and mums). Readers also use social media and recipe sites but still read print for inspiration.",
+ "<b>Objective:</b> increase positive attitude towards Heinz Tomato Ketchup by 10% amongst Australian mums over 6 months."],
+ qs:[
+  {p:"Which creative execution strategy(ies) is employed in this advertisement? Justify your answer.",m:6,
+   a:"<b>Imagery.</b> The ad focuses on visual elements: tomato slices stacked into the shape of a Heinz bottle. There is little to no product information, the image takes up most of the ad, and the headline is small at the bottom, so it is secondary to the picture.",
+   c:["Names the technique (imagery)","Defines imagery (visual elements: pictures, illustrations, symbols)","Uses 2–3 facts from the ad (tomato bottle, little info, small headline)"]},
+  {p:"a) What is the medium and vehicle? b) Does the vehicle work for the target market? Think about reach AND frequency.",m:6,
+   a:"<b>a)</b> Medium = print / magazine. Vehicle = <i>Better Homes and Gardens</i>.<br><b>b)</b> <b>Reach: strong.</b> The magazine is read by mums and household decision-makers interested in cooking and family life, matching the target. <b>Frequency: weak.</b> It is a single ad and readers usually go through a magazine once, so exposure is limited. Overall: good for reach, weak for frequency.",
+   c:["Medium and vehicle both correct","Defines reach and frequency","Reach judged with target facts","Frequency judged (single ad, read once)","Overall verdict"]},
+  {p:"a) Academic definition: is this ad creative? Start with the definition. b) Agency/industry definition: is it creative? Start with the definition. c) One advantage of creativity Heinz can expect.",m:11,
+   a:"<b>a)</b> Academically, creativity = fresh, novel, original ideas that are also appropriate/relevant. <b>Novel:</b> tomato slices forming the bottle is an original way to show the product. <b>Appropriate:</b> it says Heinz is made from tomatoes (natural, quality), which matters to mums who want good food for their families. → Creative.<br><b>b)</b> Industry: fresh and unique but also effective and recognised by awards. Unexpected, distinctive visual; it won the Australian Advertising Print Award; likely effective as it targets mums with a quality message in a vehicle that reaches them, which fits the attitude objective. → Creative.<br><b>c)</b> The ad is more likely to be recalled (creativity facilitates memory of the ad and brand).",
+   c:["Academic definition (novelty + appropriateness)","Apply both parts with case facts","Industry definition (effectiveness + awards)","Use the award and objective as evidence","Clear verdict for each","One advantage (e.g. recall)"]}
+ ]},
+{name:"Practice 1: Dyson cordless vacuum (Instagram)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "Dyson runs a 20-second Instagram Reels ad for its newest cordless vacuum. A green laser on the vacuum head lights up dust that is invisible on a ‘clean’ timber floor. As the vacuum passes, the dust disappears and an on-screen counter shows the number and size of particles picked up. End line: “See the dust you’ve been missing.” The ad ends on the price and a ‘Shop now’ button linking to the Dyson website.",
+ "<b>Target market:</b> Australian renters and young professionals aged 25–40 living in capital cities, many with pets. They value a clean, healthy home, research products online and read reviews before buying expensive appliances (around $1,100).",
+ "<b>Media:</b> paid Instagram Reels ads plus a product page on Dyson’s own website. The ads run for four weeks before the End of Financial Year sales and four weeks around Black Friday, with no ads in between.",
+ "<b>Objective:</b> increase awareness of the laser dust detection feature from 20% to 45% amongst Australian renters aged 25–40 by 31 December 2026."],
+ qs:[
+  {p:"Which message strategy does this ad use? Justify.",m:4,
+   a:"<b>Unique Selling Proposition (USP).</b> A USP is a message dominated by one unique feature or attribute. The whole ad centres on one feature, the laser that reveals hidden dust, and the end line repeats that single claim. It is not brand image, because the ad is all about a product attribute rather than a brand personality.",
+   c:["Names USP","Defines USP","Points to the single feature (laser) and end line","(Bonus) says why it is not another strategy"]},
+  {p:"Identify the type of appeal and the execution technique. Justify both.",m:6,
+   a:"<b>Appeal: rational/informational (feature appeal).</b> It focuses on the practical, functional benefit (finding and removing dust) and the dominant product trait, with facts like the particle counter. <b>Execution: demonstration.</b> ‘Seeing is believing’: the vacuum is shown working on a real floor, with dust appearing then disappearing. Demonstration suits this high-involvement buyer who wants proof before paying around $1,100.",
+   c:["Rational/informational appeal named and defined","Feature appeal as the sub-type (bonus)","Demonstration named and defined","Case facts (laser, counter, floor) for each","Links to the target market"]},
+  {p:"a) What is the medium and vehicle? b) Name the scheduling method used and give one advantage and one disadvantage for Dyson.",m:6,
+   a:"<b>a)</b> Medium = digital/social media. Vehicle = Instagram (Reels). (The Dyson website is owned media supporting it.)<br><b>b)</b> <b>Flighting:</b> intermittent periods of advertising and no advertising (two 4-week bursts around EOFY and Black Friday). <b>Advantage:</b> cost-efficient, because Dyson only pays to advertise when people are most likely to buy. <b>Disadvantage:</b> low awareness and retention between flights, and competitors can win attention in the gaps.",
+   c:["Medium and vehicle correct","Flighting named and defined","Advantage with a case link","Disadvantage with a case link"]},
+  {p:"According to the Elaboration Likelihood Model, which route to persuasion is this target most likely to take? Explain.",m:3,
+   a:"<b>Central route.</b> The target is highly involved: an expensive appliance ($1,100) that they research and read reviews about. High involvement means they process detailed message arguments, like the dust counter and laser feature. Persuasion through the central route is more enduring.",
+   c:["Central route named","Explains high involvement with case facts","Mentions processing detailed arguments → enduring outcome"]},
+  {p:"Is the advertising objective SMART(T)? Justify.",m:3,
+   a:"<b>Yes.</b> Specific: awareness of one feature (laser dust detection). Measurable: 20% → 45%. Timed: by 31 Dec 2026. Targeted: renters aged 25–40 in Australia. Achievable/realistic: a 25-point lift in about 7 months is ambitious, but a clear USP demonstration with two flights makes it plausible. Awareness is also a suitable objective because brand awareness is always an advertising objective.",
+   c:["Goes through the letters with evidence","Verdict","Comment on achievable/realistic"]}
+ ]},
+{name:"Practice 2: Bundaberg Ginger Beer (bus-shelter posters)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "Bundaberg runs a summer campaign on digital bus-shelter posters along Queen Street, Brisbane, and on screens at Sydney’s Central and Town Hall train stations. The poster shows a frosty bottle of ginger beer on a scorching footpath that is visibly melting around it, while the bottle stays perfectly cold. Small headline at the bottom: “Brewed slow. Gone fast.” There is no product information or price.",
+ "<b>Target market:</b> urban commuters aged 18–35 in Brisbane and Sydney. They are social, like things that are proudly Australian-made, and often make impulse drink purchases at convenience stores near stations and bus stops.",
+ "<b>Media:</b> the posters run all year at a low level, with much heavier placement from December to February.",
+ "<b>Objective:</b> increase positive brand attitude amongst commuters aged 18–35 in Brisbane and Sydney by 15% over summer 2026–27."],
+ qs:[
+  {p:"Which creative execution technique(s) does this ad use? Justify.",m:6,
+   a:"<b>Imagery</b> and <b>humour</b>. Imagery = focus on visual elements: the ad is almost entirely the picture of the cold bottle on a melting footpath, with only a small headline and no product information. Humour = using humour to appeal to the target: the exaggerated melting footpath and the playful line “Brewed slow. Gone fast.” suit a social 18–35 audience. Both are emotional executions.",
+   c:["Names imagery and humour","Defines each","Case facts for each (melting path, small headline, no info, playful line)","Links to the target"]},
+  {p:"Which message strategy is used? Justify.",m:3,
+   a:"<b>Brand image.</b> It gives the brand a strong, memorable identity and personality (cool, fun, Aussie summer) and says very little about product attributes: no ingredients, price or features. It is not a USP because no single feature is claimed.",
+   c:["Brand image named and defined","Evidence: little attribute info, personality","Why not USP (bonus)"]},
+  {p:"a) What is the medium and vehicle? b) Does it work for the target on reach and frequency?",m:6,
+   a:"<b>a)</b> Medium = out-of-home (digital posters). Vehicle = digital bus-shelter posters on Queen Street, Brisbane, and screens at Central and Town Hall stations, Sydney.<br><b>b)</b> <b>Frequency: strong.</b> Commuters pass the same stops and stations daily, so they see the ad repeatedly; OOH gives high repetition. <b>Reach: moderate.</b> It reaches commuters in two cities at specific locations only, missing 18–35s who drive or work from home and anyone outside Brisbane and Sydney. Short exposure time as people walk past is a limitation, but the simple visual helps. Overall: strong frequency, limited reach, good fit for impulse buying near the point of purchase.",
+   c:["Medium and vehicle correct","Defines reach and frequency","Frequency judged with case facts","Reach judged with case facts","Notes an OOH disadvantage (short exposure / visual only)","Verdict"]},
+  {p:"Which scheduling method is used, and why does it suit this product?",m:3,
+   a:"<b>Pulsing:</b> continuity is maintained all year at a low level, with heavier advertising in December–February. It suits products with steady sales that rise in certain periods, like cold drinks in summer. It keeps Bundaberg top of mind all year while concentrating spend in peak buying months.",
+   c:["Pulsing named and defined","Links to the product’s sales pattern","Benefit for Bundaberg"]},
+  {p:"Judge whether this ad is likely to achieve its objective. Justify using course content and case facts.",m:5,
+   a:"<b>Likely yes.</b> The objective is brand <i>attitude</i>, which suits an emotional, brand-image approach rather than a rational one. Humour and a striking image make the ad likeable and memorable for a social 18–35 audience, and creative ads aid recall of the ad and brand. High frequency at daily commuter locations builds familiarity during the heavy summer burst, right where impulse purchases happen. <b>Limits:</b> short exposure time and limited reach (two cities only), and ‘positive attitude’ must be measured with pre- and post-campaign surveys. Overall, the creative, message and media fit the objective well.",
+   c:["Clear verdict up front","Links message/creative to the attitude objective","Links media (frequency, location) to the objective","At least one limitation","Uses course terms"]}
+ ]},
+{name:"Practice 3: Bonds Christmas campaign (IMC)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "Bonds launches a Christmas campaign, “Comfy Christmas”. A 30-second TV ad runs during <i>The Block</i> on Channel 9. In it, real Bonds customers (parents and grandparents) talk to camera about why their family wears matching Bonds pyjamas on Christmas morning, intercut with home footage. The same red-and-white stripes, “Comfy Christmas” line and music appear in paid Instagram posts and on a gift-guide page on the Bonds website. Customers are invited to post family pyjama photos with #ComfyChristmas, and many do.",
+ "<b>Target market:</b> Australian parents aged 30–50 who buy gifts for the family, value comfort, tradition and Australian heritage brands, and shop both online and in department stores.",
+ "<b>Media:</b> TV (6 weeks before Christmas), Instagram paid posts, Bonds website, and customer posts.",
+ "<b>Objective:</b> increase positive attitude towards Bonds as a Christmas gift brand by 10% amongst Australian parents aged 30–50 by 31 December 2026."],
+ qs:[
+  {p:"Define Integrated Marketing Communications (IMC) and explain how this campaign shows message integration.",m:5,
+   a:"<b>IMC</b> is a strategic process for planning, developing, executing and evaluating coordinated, measurable, persuasive brand communications over time with target audiences, so that all tools give one clear, consistent brand story (aiming for short-term returns and long-term brand value). <b>Message integration</b> = verbal and visual consistency. Bonds uses the same red-and-white stripes, the same “Comfy Christmas” line and the same music across TV, Instagram and the website, so every touchpoint tells one brand story.",
+   c:["IMC defined in own words (coordinated, consistent, strategic)","Message integration defined","2–3 consistent elements from the case","Names multiple touchpoints"]},
+  {p:"Classify each channel as paid, owned or earned, and give one disadvantage of earned media for Bonds.",m:4,
+   a:"<b>Paid:</b> the TV ad on <i>The Block</i> and the Instagram paid posts. <b>Owned:</b> the gift-guide page on the Bonds website. <b>Earned:</b> customers’ #ComfyChristmas photos. <b>Disadvantage of earned media:</b> Bonds has no control over the message (a customer could post a complaint about quality or sizing), and its impact is hard to measure.",
+   c:["Paid correct","Owned correct","Earned correct","One earned-media disadvantage"]},
+  {p:"Which execution technique does the TV ad use? Justify.",m:4,
+   a:"<b>Testimonial.</b> A person, staff member or celebrity talks about their personal satisfaction with the product. Here, real Bonds customers talk to camera about why their family loves the pyjamas. Using real families also adds a <b>slice-of-life</b> feel (home footage of Christmas morning). It is mainly emotional (tradition, family), with some rational elements (comfort).",
+   c:["Testimonial named and defined","Case evidence (real customers to camera)","Optional second technique with evidence","Notes appeal type"]},
+  {p:"Explain synergy and how this campaign could achieve it.",m:4,
+   a:"<b>Synergy</b> is the aim of IMC: the combined effect of several media delivering a consistent message is greater than the sum of their individual effects. It builds through repetition and linking of messages and common themes across platforms, creating a cumulative effect on memory. Bonds repeats the same stripes, line and music across TV, Instagram and the website, and customer posts echo the theme, so each exposure reinforces the others → stronger recall and attitude than any one channel alone.",
+   c:["Synergy defined (more than the sum of the parts)","How it is achieved (repetition, common themes)","Case application","Outcome (memory/attitude)"]},
+  {p:"Using the academic definition of creativity, is this campaign creative? Justify.",m:5,
+   a:"Academic creativity = original/novel ideas that are also appropriate/relevant. <b>Appropriateness: high.</b> Family, tradition and comfort match parents who value comfort and heritage brands, and matching Christmas pyjamas fit the gift objective. <b>Novelty: moderate.</b> Real-customer testimonials and Christmas family footage are common in the category, so the idea is not very unexpected; the #ComfyChristmas participation adds some freshness. <b>Verdict:</b> appropriate but only somewhat novel, so it is moderately creative. (Either verdict can score if justified with both parts of the definition.)",
+   c:["Definition with both parts","Appropriateness judged with case facts","Novelty judged with case facts","Clear verdict"]}
+ ]},
+{name:"Practice 4: Toyota RAV4 Hybrid (YouTube)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "Toyota runs a 2-minute YouTube pre-roll ad for the RAV4 Hybrid. A family drives the same Brisbane–Byron Bay road trip in three SUVs. On-screen graphics compare fuel used and dollars spent: the RAV4 Hybrid uses the least. Closing line: “Australia’s smart family SUV.” A link goes to a page with safety ratings, warranty and fuel figures.",
+ "<b>Target market:</b> parents aged 30–45 in suburban Australia buying a family car (around $45,000). They compare models carefully over several weeks, read reviews and watch long video reviews on YouTube.",
+ "<b>Media:</b> YouTube pre-roll and in-feed video, every week of the year.",
+ "<b>Objective:</b> increase the share of the target audience who rate the RAV4 Hybrid as the best-value family SUV from 30% to 40% within 12 months."],
+ qs:[
+  {p:"Which message strategy is used? Justify.",m:4,
+   a:"<b>Positioning.</b> Positioning establishes a differentiated, defensible space in the consumer’s mind, not tied to one attribute. The ad claims the space ‘Australia’s smart family SUV’ using several points (fuel, cost, safety, warranty) against competitors. It is not a USP because there is no single unique feature claim.",
+   c:["Positioning named and defined","The ‘smart family SUV’ space","Several attributes, not one","Why not USP"]},
+  {p:"Which execution technique is used, and what type of appeal is it? Justify.",m:5,
+   a:"<b>Comparison</b>: it compares the product’s advantages with competitors (three SUVs, fuel and dollars spent). It is a <b>rational/informational</b> appeal, specifically a <b>competitive advantage appeal</b>: a direct comparison claiming superiority on an attribute (fuel economy). This suits buyers who compare models carefully.",
+   c:["Comparison named and defined","Case evidence (three SUVs, fuel graphics)","Rational appeal","Competitive advantage sub-type","Links to the careful-comparing target"]},
+  {p:"Using the Elaboration Likelihood Model, explain which route this target will take and whether the ad suits it.",m:5,
+   a:"<b>Central route.</b> Buying a $45,000 family car is high involvement: the target has the motivation and ability to process detailed arguments (they read reviews and watch long videos). The ad gives detailed arguments (fuel use, cost, safety, warranty) and a 2-minute format with a link to more data, which suits active evaluation. Central-route persuasion gives an <b>enduring</b> attitude change, matching a 12-month attitude objective.",
+   c:["Central route named","High involvement with case facts","Motivation/ability/opportunity mentioned","Ad provides detailed arguments","Enduring outcome linked to the objective"]},
+  {p:"a) What is the medium and vehicle? b) Which scheduling method is used, and is it appropriate?",m:5,
+   a:"<b>a)</b> Medium = digital (online video). Vehicle = YouTube.<br><b>b)</b> <b>Continuity</b>: advertising every week of the year. Appropriate: car buyers enter the market at any time and research over several weeks, so a constant presence covers the whole buying cycle. Drawback: higher cost and risk of overexposure/wear-out, so Toyota should refresh the creative.",
+   c:["Medium and vehicle correct","Continuity named and defined","Justified by the buying cycle","One disadvantage"]}
+ ]},
+{name:"Practice 5: Coles weekly specials (radio)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "Coles runs 30-second radio ads on Brisbane’s Nova 106.9 during the Drive slot (4–7 pm). A cheerful voiceover reads out this week’s prices: “Coles chicken breast, now $9 a kilo. Down, down, prices are down!” The same jingle is used in every ad.",
+ "<b>Target market:</b> Brisbane households aged 25–54 who do the weekly grocery shop and are price-conscious. Many listen to the radio in the car on the way home from work.",
+ "<b>Media:</b> radio ads every week, all year. One week of ads costs $6,000 and reaches 300,000 listeners.",
+ "<b>Objective:</b> increase brand awareness of Coles’ weekly specials amongst Brisbane grocery shoppers aged 25–54 from 50% to 65% within 6 months."],
+ qs:[
+  {p:"Which type of appeal is used? Justify, naming the specific type.",m:4,
+   a:"<b>Rational/informational</b>, specifically a <b>favourable price appeal</b>: the price offer is the dominant point of the message ($9 a kilo, ‘prices are down’). It targets the practical, functional need to save money, which suits price-conscious shoppers.",
+   c:["Rational/informational named","Favourable price appeal named and defined","Case evidence (prices read out)","Links to the price-conscious target"]},
+  {p:"Calculate the CPM and explain what it tells Coles.",m:3,
+   a:"CPM = cost ÷ audience × 1,000 = $6,000 ÷ 300,000 × 1,000 = <b>$20</b>. It is the cost of reaching 1,000 listeners. It is a <b>relative cost</b> measure, so Coles can compare cost efficiency against other vehicles (e.g. TV or another station).",
+   c:["Correct formula","$20","Explains relative cost / comparing vehicles"]},
+  {p:"Evaluate radio as the medium for this target. Give one advantage and one disadvantage, and discuss frequency.",m:6,
+   a:"<b>Advantage:</b> local coverage and low cost; Nova Brisbane reaches local shoppers in the car on the way home, right before they might shop. <b>High frequency, quickly:</b> weekly ads in the Drive slot repeat the jingle and prices, which builds awareness (the objective). <b>Disadvantage:</b> audio only, so shoppers can’t see the products or prices again; clutter and station surfing mean some ads are missed. Overall a good fit for awareness of weekly specials.",
+   c:["Advantage with case link","Disadvantage with case link","Frequency discussed","Link to the awareness objective","Verdict"]},
+  {p:"Which scheduling method is used? Why does it suit Coles?",m:3,
+   a:"<b>Continuity:</b> a continuous pattern of advertising every week. It suits food and household products bought on an ongoing basis: groceries are bought weekly all year, so a constant reminder covers the whole buying cycle.",
+   c:["Continuity named and defined","Groceries are bought all year","Constant reminder / covers buying cycle"]},
+  {p:"How does the repeated jingle help message integration and memory?",m:3,
+   a:"<b>Message integration</b> = verbal and visual consistency. The same jingle and line in every ad (and in-store) gives one consistent message. Repetition and linking of messages builds <b>synergy</b>: a cumulative effect on memory, so shoppers recall the brand and the specials.",
+   c:["Message integration defined","Jingle as the consistent element","Synergy/repetition → memory"]}
+ ]},
+{name:"Practice 6: Blood donation (cinema)",
+ text:["<i>Fictional practice case written for revision.</i>",
+ "A blood donation service runs a 60-second cinema ad before films. It opens on a car crash at night. Paramedics rush a young woman to hospital, where she receives blood transfusions. Months later she is shown laughing at her best friend’s wedding. Final text: “1 in 3 Australians will need blood. Book a donation today.”",
+ "<b>Target market:</b> healthy adults aged 18–35 who have never donated blood. They go to the cinema with friends at least monthly and care about helping their community.",
+ "<b>Media:</b> cinema ads at major cinema chains in capital cities for 3 months.",
+ "<b>Objective (as written by the client):</b> “Get more young people to donate blood.”"],
+ qs:[
+  {p:"Which message strategy and execution technique are used? Justify both.",m:6,
+   a:"<b>Message strategy: inherent drama</b>: it focuses on the real tension that triggers action (an emergency where blood saves a life) and dramatises the benefit. <b>Execution: dramatisation</b>: a narrative where the ‘product’ (donated blood) is the hero that saves the woman. Both are <b>emotional</b>: fear and tension, then relief and joy.",
+   c:["Inherent drama named and defined","Dramatisation named and defined","Case evidence (crash → recovery → wedding)","Emotional appeal noted"]},
+  {p:"Give one advantage and one disadvantage of cinema for this campaign.",m:4,
+   a:"<b>Advantage:</b> a captive audience with the impact of sight, sound and motion. Young adults who go to the cinema monthly will watch the full 60 seconds, which suits an emotional story. <b>Disadvantage:</b> slow to build reach and high production cost, so it only reaches cinema-goers in capital cities and misses non-cinema-goers and regional areas.",
+   c:["Advantage named","Linked to the target / story","Disadvantage named","Linked to the case"]},
+  {p:"Is the client’s objective SMART(T)? If not, rewrite it.",m:5,
+   a:"<b>No.</b> “Get more young people to donate blood” is not Specific (what measure?), not Measurable (no numbers), not Timed (no deadline) and only loosely Targeted. <b>Rewrite:</b> “Increase first-time donation bookings amongst Australians aged 18–35 who have never donated by 15% within 3 months, measured by booking data.” Note: the objective should relate to the advertising problem (e.g. young people not seeing donating as relevant to them).",
+   c:["Verdict: not SMART","Names which letters are missing","Rewrite has a number, target, timeframe and measure"]},
+  {p:"Using the academic definition, is this ad creative? Justify.",m:5,
+   a:"Academic creativity = original/novel and appropriate/relevant. <b>Appropriate:</b> yes, it shows exactly why donating matters and ends with a clear call to action for young people who care about community. <b>Novelty:</b> moderate; emergency-to-recovery stories are common in health ads, but jumping to a happy wedding is a less expected ending. <b>Verdict:</b> highly appropriate, moderately novel → creative to a moderate degree. Justify either verdict with both parts.",
+   c:["Definition with both parts","Appropriateness with case facts","Novelty with case facts","Clear verdict"]}
+ ]}
+];
+
+const casePick=document.getElementById("casePick");
+casePick.innerHTML=CASES.map((c,i)=>'<option value="'+i+'">'+c.name+'</option>').join("");
+casePick.onchange=()=>renderCase(+casePick.value);
+function renderCase(n){
+  const c=CASES[n], total=c.qs.reduce((s,q)=>s+q.m,0);
+  let h='<div class="card"><span class="tag">Case · '+total+' marks</span><div class="case-text">'+c.text.map(t=>'<p>'+t+'</p>').join("")+'</div></div>';
+  c.qs.forEach((q,i)=>{
+    h+='<div class="card"><p class="q">Q'+(i+1)+'. '+q.p+' <span class="marks">['+q.m+' marks]</span></p>'+
+      '<textarea placeholder="Write your answer here, then reveal the model answer to self-mark."></textarea>'+
+      '<div class="row" style="margin-top:10px"><button class="btn primary" data-r="'+i+'">Show model answer</button></div>'+
+      '<div class="model hidden" id="m'+i+'"><div>'+q.a+'</div><div style="margin-top:8px"><b>Marking checklist</b> (tick what you included):</div><ul>'+
+      q.c.map(x=>'<li><label><input type="checkbox"> '+x+'</label></li>').join("")+'</ul></div></div>';
+  });
+  document.getElementById("caseBox").innerHTML=h;
+  document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
+    const m=document.getElementById("m"+b.dataset.r);m.classList.toggle("hidden");
+    b.textContent=m.classList.contains("hidden")?"Show model answer":"Hide model answer";
+  });
+}
+renderCase(0);
+
+let tId=null;
+document.getElementById("timerBtn").onclick=function(){
+  const el=document.getElementById("timer");
+  if(tId){clearInterval(tId);tId=null;el.textContent="";this.textContent="Start 40-min timer";return}
+  let s=40*60;this.textContent="Stop timer";
+  const tick=()=>{el.textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");if(s--<=0){clearInterval(tId);tId=null;el.textContent="Time’s up!"}};
+  tick();tId=setInterval(tick,1000);
+};
+
+/* ===================== DEFINITIONS ===================== */
+const DEFS=[
+ ["Advertising (traditional)","Any paid form of non-personal communication about an organisation, product, service or idea by an identified sponsor."],
+ ["Integrated Marketing Communications (IMC)","A strategic process to plan, develop, execute and evaluate coordinated, measurable, persuasive brand communications over time with target audiences, giving one consistent brand story. Goal: short-term returns and long-term brand value."],
+ ["Creativity (academic)","Fresh, novel/original ideas that are also appropriate/relevant to the communication problem."],
+ ["Creativity (agency/industry)","Fresh and unique, but judged by effectiveness/outcomes (managers: awareness, sales) and by reputation and awards (creatives)."],
+ ["Advantages of creativity","Facilitates memory/recall of ad and brand; makes other ads less memorable; inspires consumers to think creatively."],
+ ["Synergy","Combined effect of consistent messages across media exceeds the sum of individual efforts; built by repetition and common themes; cumulative effect on memory."],
+ ["Message / strategic / organisational integration","Message = verbal and visual consistency. Strategic = all IMC elements work to common objectives. Organisational = aligned structure, rewards, CEO support, cross-functional teams."],
+ ["Paid / Owned / Earned","Paid = brand pays for the channel (TV, paid search). Owned = brand controls it (website, blog). Earned = customers or stakeholders create it (reviews, posts)."],
+ ["Hard sell vs soft sell","Hard = direct, rational ‘reason why’. Soft = product association, images, deeper emotion."],
+ ["Congruity theory","Humans prefer consistency. Disrupted by challenging messages or inconsistent touchpoints. Congruent → positive evaluations; incongruent → more effort but better remembered."],
+ ["Communication process","Sender encodes → message → channel → receiver decodes → response → feedback; noise can interfere at any stage."],
+ ["ELM: central vs peripheral","Central = high involvement, detailed arguments, enduring change. Peripheral = low involvement, peripheral cues, temporary change. Needs motivation, ability, opportunity."],
+ ["Classical vs operant conditioning","Classical = neutral stimulus paired with one that produces a response (passive). Operant = repeat rewarded behaviour, avoid punished (active)."],
+ ["Advertising problem","Gap between where the brand is and where it wants to be; written as a negative statement; the real problem (not a symptom) that advertising can solve."],
+ ["SMART(T) objectives","Specific, Measurable, Achievable, Realistic, Timed, (Targeted). Brand awareness and brand attitude are always objectives."],
+ ["Message strategies","USP = one unique feature. Brand image = identity/personality. Inherent drama = dramatises what triggers purchase. Positioning = a differentiated space in the mind."],
+ ["Rational vs emotional appeals","Rational/informational = practical, functional benefits (feature, competitive advantage, price, news, popularity). Emotional/transformational = feelings that transform the usage experience."],
+ ["Execution techniques","Straight sell, scientific/technical, demonstration, comparison, testimonial, slice of life, animation, imagery, dramatisation, humour."],
+ ["Medium vs vehicle","Medium = general category (print, TV, digital, OOH). Vehicle = specific carrier (Better Homes and Gardens, 60 Minutes, Instagram)."],
+ ["Reach vs frequency","Reach = number of DIFFERENT people exposed at least once (%). Frequency = number of times exposed in a period. TARP = reach × frequency."],
+ ["Effective vs average frequency","Effective = desired level set in planning. Average = observed value calculated for the campaign."],
+ ["Continuity / Flighting / Pulsing","Continuity = constant (food, household). Flighting = on/off bursts (seasonal). Pulsing = constant base + bursts (cold drinks in summer)."],
+ ["CPM, CPC, CPA","CPM = cost to reach 1,000 of the target. CPC = cost ÷ clicks. CPA = cost ÷ desired actions."],
+ ["Budgeting methods","Percentage-of-sales, task method, share-of-voice, share-of-market."]
+];
+document.getElementById("defGrid").innerHTML=DEFS.map(d=>'<div class="card flip"><div class="term">'+d[0]+'</div><div class="def hidden">'+d[1]+'</div><div class="hint">Tap to reveal</div></div>').join("");
+document.querySelectorAll(".flip").forEach(c=>c.onclick=()=>{c.querySelector(".def").classList.toggle("hidden");c.querySelector(".hint").classList.toggle("hidden")});
+document.getElementById("showAll").onclick=()=>document.querySelectorAll(".flip").forEach(c=>{c.querySelector(".def").classList.remove("hidden");c.querySelector(".hint").classList.add("hidden")});
+document.getElementById("hideAll").onclick=()=>document.querySelectorAll(".flip").forEach(c=>{c.querySelector(".def").classList.add("hidden");c.querySelector(".hint").classList.remove("hidden")});
+
+
+/* ===================== PROGRESS STATS ===================== */
+function getStats(){return store.get("advt_stats")||{}}
+function logStat(l,ok){const s=getStats();const k=String(l);s[k]=s[k]||{r:0,t:0};s[k].t++;if(ok)s[k].r++;store.set("advt_stats",s)}
+function renderProg(){
+  const s=getStats(),box=document.getElementById("progBox");
+  const rows=Object.keys(L).map(k=>{const v=s[k]||{r:0,t:0};return {k,name:L[k],r:v.r,t:v.t,p:v.t?Math.round(v.r/v.t*100):null}});
+  const tried=rows.filter(r=>r.t>0);
+  let h="";
+  rows.forEach(r=>{
+    const col=r.p===null?"var(--line)":r.p>=80?"var(--good)":r.p>=60?"var(--accent)":"var(--bad)";
+    h+='<div class="prow"><div class="pname">'+r.name+'</div><div class="pbar"><i style="width:'+(r.p||0)+'%;background:'+col+'"></i></div><div class="pval">'+(r.p===null?"–":r.p+"% ("+r.r+"/"+r.t+")")+'</div></div>';
+  });
+  if(tried.length){
+    const weak=tried.filter(r=>r.t>=3&&r.k!=="S").sort((a,b)=>a.p-b.p)[0];
+    if(weak) h+='<div class="explain" style="margin-top:12px"><b>Revise next:</b> '+weak.name+' ('+weak.p+'%). Use its tree worksheet PDF, then filter the multiple-choice tab to that lecture.</div>';
+  } else h+='<p class="meta">No answers yet. Do some multiple-choice or speed-drill questions first.</p>';
+  box.innerHTML=h;
+}
+document.getElementById("progReset").onclick=()=>{if(confirm("Reset all progress scores on this device?")){store.set("advt_stats",{});renderProg()}};
+
+/* ===================== SPEED DRILL ===================== */
+const DRILL=[
+ // [category, lecture, scenario, answer, [distractors], why]
+ ["Execution technique",5,"A perfume ad shows a famous actress saying she wears it every day.","Testimonial / endorsement",["Slice of life","Dramatisation","Imagery"],"A person or celebrity talks about their personal satisfaction."],
+ ["Execution technique",5,"Juice spills on the carpet minutes before guests arrive; a cleaning spray saves the day.","Slice of life",["Demonstration","Humour","Testimonial / endorsement"],"The product solves a problem in a real, everyday situation."],
+ ["Execution technique",5,"A paper towel soaks up a full glass of water on camera in real time.","Demonstration",["Comparison","Straight sell","Imagery"],"‘Seeing is believing’: the product is shown working."],
+ ["Execution technique",5,"Two cola brands are put through a blind taste test on screen.","Comparison",["Demonstration","Testimonial / endorsement","Scientific / technical"],"It compares the product with a competitor."],
+ ["Execution technique",5,"A cartoon bear explains how a bank’s new app works.","Animation",["Dramatisation","Humour","Imagery"],"A stylised, animated execution."],
+ ["Execution technique",5,"A toothpaste ad quotes a dental association endorsement and the fluoride percentage.","Scientific / technical",["Straight sell","Testimonial / endorsement","Demonstration"],"Technical information or endorsement by a scientific body."],
+ ["Execution technique",5,"A catalogue ad lists the product, its features and its price, nothing else.","Straight sell",["Scientific / technical","Imagery","Comparison"],"A straight presentation of product information."],
+ ["Execution technique",5,"A 60-second mini-film in which a phone helps a lost girl find her way home.","Dramatisation",["Slice of life","Animation","Humour"],"A narrative where the product is the hero."],
+ ["Execution technique",5,"A man is so distracted by a chocolate bar that he walks straight into a pole.","Humour",["Dramatisation","Slice of life","Imagery"],"It uses humour to appeal to the audience."],
+ ["Execution technique",5,"A full-page magazine ad: a perfume bottle on a beach at sunset, only the brand name as text.","Imagery",["Straight sell","Demonstration","Animation"],"The focus is on visual elements, with little information."],
+ ["Message strategy",5,"A toothpaste ad talks only about its patented ‘enamel shield’ ingredient.","USP",["Brand image","Inherent drama","Positioning"],"One unique feature dominates the message."],
+ ["Message strategy",5,"A watch ad shows explorers on mountains and never mentions product features.","Brand image",["USP","Positioning","Inherent drama"],"It builds personality and identity with little attribute information."],
+ ["Message strategy",5,"An insurance ad: a house floods at night, the family panics, then they call the insurer.","Inherent drama",["Brand image","USP","Positioning"],"It dramatises the tension that triggers purchase."],
+ ["Message strategy",5,"A budget airline calls itself ‘Australia’s low-fares airline’ in every ad.","Positioning",["USP","Brand image","Inherent drama"],"It owns a differentiated space in the consumer’s mind."],
+ ["Appeal",5,"A supermarket radio ad: ‘Half price this week only!’","Favourable price appeal",["Feature appeal","News appeal","Popularity appeal"],"The price offer is the dominant point."],
+ ["Appeal",5,"‘Australia’s No. 1 selling mattress – 2 million sold.’","Popularity appeal",["Competitive advantage appeal","Feature appeal","News appeal"],"It stresses how many people use or choose the brand."],
+ ["Appeal",5,"‘New! Now available in three flavours.’","News appeal",["Feature appeal","Popularity appeal","Favourable price appeal"],"An announcement about the product dominates."],
+ ["Appeal",5,"An airline ad with emotional music and families reuniting at the airport.","Emotional / transformational appeal",["Rational / informational appeal","Feature appeal","Competitive advantage appeal"],"It creates feelings that transform the experience of using the brand."],
+ ["Scheduling",7,"Sunscreen is advertised from October to February only.","Flighting",["Continuity","Pulsing","Effective frequency"],"On/off periods suit seasonal products."],
+ ["Scheduling",7,"A bread brand advertises every week of the year.","Continuity",["Flighting","Pulsing","Average frequency"],"A constant pattern suits products bought all year."],
+ ["Scheduling",7,"Ice cream is advertised all year, with heavy bursts in summer.","Pulsing",["Flighting","Continuity","Reach"],"A constant base plus bursts in peak periods."],
+ ["Paid / Owned / Earned",2,"A brand posts a video on its own TikTok account.","Owned media",["Paid media","Earned media","Shared media"],"The brand controls the channel."],
+ ["Paid / Owned / Earned",2,"A customer posts an unpaid five-star review on Google.","Earned media",["Owned media","Paid media","Shared media"],"Customers generate it: credible, but no control."],
+ ["Paid / Owned / Earned",2,"A brand pays for a sponsored Instagram post.","Paid media",["Owned media","Earned media","Shared media"],"The brand pays to use the channel."],
+ ["Positioning",4,"Vegemite links itself with cricket supporters.","Product user",["Cultural symbols","Product class","Use/application"],"It associates the brand with a type of user."],
+ ["Positioning",4,"Baking soda is advertised for removing fridge odours.","Use/application",["Attributes/benefits","Product class","Product user"],"It associates the brand with a specific use."],
+ ["Positioning",4,"The Caramello Koala is used as an Aussie icon.","Cultural symbols",["Product user","Competitor","Attributes/benefits"],"A culturally meaningful symbol."],
+ ["Positioning",4,"An airline offers good quality at a competitive price.","Price/quality",["Attributes/benefits","Competitor","Product class"],"Price is used as the brand’s characteristic."],
+ ["Positioning",4,"A beer is positioned on its low carbs and great taste.","Attributes/benefits",["Price/quality","Product user","Use/application"],"Specific attributes and benefits set it apart."],
+ ["Positioning",4,"A car-rental firm says ‘We’re No. 2, so we try harder’ against the leader.","Competitor",["Product class","Price/quality","Cultural symbols"],"It positions against a named rival."],
+ ["Segmentation",4,"Targeting people who value sustainability and outdoor lifestyles.","Psychographic",["Demographic","Behavioural","Socio-economic"],"Personality, values or lifestyle."],
+ ["Segmentation",4,"Targeting heavy users who buy coffee every day.","Behavioural (usage)",["Psychographic","Demographic","Geographic"],"The rate and status of use."],
+ ["Segmentation",4,"Targeting households earning over $150,000.","Socio-economic",["Demographic","Psychographic","Geographic"],"Income, education, occupation, class."],
+ ["Segmentation",4,"Targeting Queensland residents only.","Geographic",["Demographic","Socio-economic","Behavioural (usage)"],"A geographic unit (state, city)."],
+ ["Consumer behaviour",3,"Before buying a car, Ana reads every spec and review in detail.","Central route",["Peripheral route","Classical conditioning","Selective retention"],"High involvement → detailed arguments → enduring change."],
+ ["Consumer behaviour",3,"Tom picks a chip brand because he likes its catchy jingle.","Peripheral route",["Central route","Operant conditioning","Cognitive dissonance"],"Low involvement → peripheral cues → temporary change."],
+ ["Consumer behaviour",3,"Loyalty points after every purchase keep shoppers coming back.","Operant conditioning",["Classical conditioning","Cognitive learning","Selective attention"],"Rewarded behaviour is repeated (the person is active)."],
+ ["Consumer behaviour",3,"After buying an expensive phone, Mia searches for reviews that say she chose well.","Cognitive dissonance",["Problem recognition","Selective exposure","Evoked set"],"Postpurchase doubt → seeking supportive information."],
+ ["Media",7,"An ad runs during ‘The Block’ on Channel 9. What is the vehicle?","The Block (TV program)",["Television","Broadcast","Out-of-home"],"The vehicle is the specific carrier; TV is the medium."],
+ ["Media",7,"A brand chooses 4 ads on a small show over 1 ad on a big show, to repeat the message.","Prioritising frequency",["Prioritising reach","Prioritising coverage","Prioritising CPM"],"Fewer people, more often = frequency."],
+ ["IMC",2,"The same logo, colours and jingle appear on TV, radio and Instagram.","Message integration",["Strategic integration","Organisational integration","Dysfunction"],"Verbal and visual consistency."],
+ ["Demand",1,"An industry body runs ‘Eat more pork’ ads with no brand named.","Primary demand",["Selective demand","Trade advertising","Brand image"],"It stimulates a whole product category."]
+];
+const dCat=document.getElementById("drillCat");
+const cats=[...new Set(DRILL.map(d=>d[0]))];
+dCat.innerHTML='<option value="all">All types ('+DRILL.length+')</option>'+cats.map(c=>'<option>'+c+'</option>').join("");
+let dDeck=[],dI=0,dRight=0,dStreak=0,dBest=0;
+document.getElementById("drillGo").onclick=startDrill;
+function startDrill(){
+  dDeck=shuffleArr(DRILL.filter(d=>dCat.value==="all"||d[0]===dCat.value).slice());dI=0;dRight=0;dStreak=0;showDrill();
+}
+function showDrill(){
+  const box=document.getElementById("drillBox");
+  document.getElementById("drillStat").textContent=dDeck.length?("Card "+Math.min(dI+1,dDeck.length)+" of "+dDeck.length+" · Right "+dRight+" · Streak "+dStreak+" · Best "+dBest):"";
+  if(dI>=dDeck.length){box.innerHTML='<div class="card"><div class="score">'+dRight+' / '+dDeck.length+'</div><div class="row"><button class="btn primary" onclick="startDrill()">Go again</button></div></div>';return}
+  const d=dDeck[dI],opts=shuffleArr([d[3]].concat(d[4]));
+  box.innerHTML='<div class="card"><span class="tag">Name the '+d[0].toLowerCase()+'</span><p class="q">'+d[2]+'</p>'+
+    opts.map(o=>'<button class="opt">'+o+'</button>').join("")+'<div id="dfb"></div></div>';
+  box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const ok=b.textContent===d[3];
+    box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===d[3])x.classList.add("right")});
+    if(!ok)b.classList.add("wrong");
+    if(ok){dRight++;dStreak++;dBest=Math.max(dBest,dStreak)}else dStreak=0;
+    logStat(d[1],ok);
+    document.getElementById("dfb").innerHTML='<div class="explain">'+(ok?'<b class="ok">Yes!</b> ':'<b class="no">It’s '+d[3]+'.</b> ')+d[5]+'</div><div class="row" style="margin-top:10px"><button class="btn primary" id="dnext">Next →</button></div>';
+    document.getElementById("dnext").onclick=()=>{dI++;showDrill()};
+  });
+}
+
+/* ===================== MOCK EXAM ===================== */
+let mTimer=null,mQs=[],mCase=null;
+document.getElementById("mockStart").onclick=()=>{
+  if(mTimer && !confirm("Restart the mock exam?"))return;
+  mQs=shuffleArr(Q.map((q,i)=>i)).slice(0,12);
+  mCase=Math.floor(Math.random()*CASES.length);
+  let h='<div class="card"><p class="q">Part A · Multiple choice (12 marks)</p><p class="meta">Choose ONE answer per question. Answers are shown at the end.</p></div>';
+  mQs.forEach((qi,n)=>{const q=Q[qi];
+    const fixed=q.o.map((t,i)=>i).filter(i=>/^all the above/i.test(q.o[i]));
+    const order=shuffleArr(q.o.map((t,i)=>i).filter(i=>!fixed.includes(i))).concat(fixed);
+    h+='<div class="card"><p class="q">'+(n+1)+'. '+q.q+'</p>'+order.map((oi,pos)=>'<label class="mopt"><input type="radio" name="mq'+n+'" value="'+oi+'"> '+String.fromCharCode(97+pos)+'. '+q.o[oi]+'</label>').join("")+'</div>';
+  });
+  const c=CASES[mCase],tot=c.qs.reduce((s,q)=>s+q.m,0);
+  h+='<div class="card"><p class="q">Part B · Case study ('+tot+' marks)</p><div class="case-text">'+c.text.map(t=>'<p>'+t+'</p>').join("")+'</div></div>';
+  c.qs.forEach((q,i)=>{h+='<div class="card"><p class="q">Q'+(i+1)+'. '+q.p+' <span class="marks">['+q.m+' marks]</span></p><textarea class="mans"></textarea></div>'});
+  h+='<div class="card"><button class="btn primary" id="mockSubmit">Finish & mark</button></div>';
+  document.getElementById("mockBox").innerHTML=h;
+  let s=90*60;const el=document.getElementById("mockTimer");clearInterval(mTimer);
+  const tick=()=>{el.textContent="⏱ "+String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");if(s--<=0){clearInterval(mTimer);el.textContent="Time’s up! Finish and mark."}};
+  tick();mTimer=setInterval(tick,1000);
+  document.getElementById("mockSubmit").onclick=markMock;
+};
+function markMock(){
+  clearInterval(mTimer);mTimer=null;
+  let sc=0,rev="";
+  mQs.forEach((qi,n)=>{const q=Q[qi];const sel=document.querySelector('input[name="mq'+n+'"]:checked');
+    const pick=sel?+sel.value:-1,ok=pick===q.a;if(ok)sc++;logStat(q.l,ok);
+    if(!ok)rev+='<li><b>'+(n+1)+'. '+q.q+'</b><br>Your answer: '+(pick<0?"(blank)":q.o[pick])+'<br><span style="color:var(--good)">Correct: '+q.o[q.a]+'</span><br><span class="meta">'+q.e+'</span></li>';
+  });
+  const answers=[...document.querySelectorAll(".mans")].map(t=>t.value);
+  const c=CASES[mCase];
+  let h='<div class="card"><div class="meta">Part A score</div><div class="score">'+sc+' / 12</div>'+
+    (rev?'<p class="q" style="margin-top:10px">Review the ones you missed</p><ul class="rev">'+rev+'</ul>':'<p>Perfect Part A!</p>')+'</div>'+
+    '<div class="card"><p class="q">Part B · Mark your own answers</p><p class="meta">Compare with the model answer and tick the checklist. Roughly one mark per ticked point.</p></div>';
+  c.qs.forEach((q,i)=>{h+='<div class="card"><p class="q">Q'+(i+1)+'. '+q.p+' <span class="marks">['+q.m+' marks]</span></p>'+
+    '<div class="case-text"><b>Your answer:</b><br>'+(answers[i]?answers[i].replace(/[<&]/g,ch=>ch==="<"?"&lt;":"&amp;").replace(/\n/g,"<br>"):"<i>(blank)</i>")+'</div>'+
+    '<div class="model"><div>'+q.a+'</div><ul>'+q.c.map(x=>'<li><label><input type="checkbox"> '+x+'</label></li>').join("")+'</ul></div></div>'});
+  document.getElementById("mockBox").innerHTML=h;
+  document.getElementById("mockTimer").textContent="";
+  window.scrollTo({top:0});
+}
+
+/* ===================== TABS ===================== */
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));t.classList.add("on");
+  ["mcq","cases","mock","drill","defs","prog","how"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==t.dataset.tab));
+  if(t.dataset.tab==="prog") renderProg();
+  window.scrollTo({top:0});
+});
+</script>
+</body>
+</html>
